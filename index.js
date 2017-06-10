@@ -1,5 +1,5 @@
 
-var ALL_DOUBLE_QUOTES = /"/g
+var DOUBLE_QUOTES = /"/g
 
 module.exports = function h (tag, attrs, body) {
   if (!body && typeof attrs !== 'object') {
@@ -12,7 +12,7 @@ module.exports = function h (tag, attrs, body) {
 
   // Create attribute list
   for (var attr in attrs) {
-    el += ' ' + attr + '="' + attrs[attr].replace(ALL_DOUBLE_QUOTES, '\\"') + '"'
+    el += ' ' + attr + '="' + attrs[attr].replace(DOUBLE_QUOTES, '\\"') + '"'
   }
 
   // Cap off opening tag

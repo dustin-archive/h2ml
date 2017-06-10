@@ -15,7 +15,7 @@ module.exports = function h (tag, attrs, body) {
   // Cap off opening tag
   el += '>'
 
-  // Create closing tag and body, if element is not void
+  // Create body and closer (if is not a void)
   if (
     tag !== 'img' && tag !== 'input' && tag !== 'br' && tag !== 'meta' &&
     tag !== 'br' && tag !== 'wbr' && tag !== 'embed' && tag !== 'area' &&

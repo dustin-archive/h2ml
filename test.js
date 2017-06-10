@@ -6,7 +6,7 @@ test('creates html string', function (t) {
 
   t.is(
     h('div', { class: 'foo', type: 'test' }, 'bar'),
-    "<div class='foo' type='test'>bar</div>",
+    '<div class="foo" type="test">bar</div>',
     'single element'
   )
 
@@ -15,19 +15,19 @@ test('creates html string', function (t) {
       h('span', 'foo'),
       h('span', 'bar')
     ]),
-    "<div class='bar' type='test'><span>foo</span><span>bar</span></div>",
+    '<div class="bar" type="test"><span>foo</span><span>bar</span></div>',
     'basic nesting'
   )
 
   t.is(
     h('img', { src: 'dat://example.com' }),
-    "<img src='dat://example.com'>",
+    '<img src="dat://example.com">',
     'void element'
   )
 
   t.is(
-    h('p', { test: "foo 'bar'" }, 'Hello world'),
-    "<p test='foo \\'bar\\''>Hello world</p>",
+    h('p', { test: 'foo "bar"' }, 'Hello world'),
+    '<p test="foo \\"bar\\"">Hello world</p>',
     'escapes quotes'
   )
 

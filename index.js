@@ -1,8 +1,8 @@
 
-var QUOTE = /'/g
+var QUOTE = /"/g
 
 module.exports = function h (tag, attrs, body) {
-  if (typeof attrs !== 'object' && !body) {
+  if (!body && typeof attrs !== 'object') {
     body = attrs
     attrs = null
   }
@@ -12,7 +12,7 @@ module.exports = function h (tag, attrs, body) {
 
   // Create attribute list
   for (var attr in attrs) {
-    el += ' ' + attr + "='" + attrs[attr].replace(QUOTE, "\\'") + "'"
+    el += ' ' + attr + '="' + attrs[attr].replace(QUOTE, '\\"') + '"'
   }
 
   // Cap off opening tag

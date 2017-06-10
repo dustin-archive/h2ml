@@ -2,8 +2,11 @@
 var QUOTE = /'/g
 
 module.exports = function h (tag, attrs, body) {
-  if (typeof attrs !== 'object' && !body) body = attrs, attrs = null
-  
+  if (typeof attrs !== 'object' && !body) {
+    body = attrs
+    attrs = null
+  }
+
   // Start opening tag
   var el = '<' + tag
 
@@ -27,4 +30,4 @@ module.exports = function h (tag, attrs, body) {
   }
 
   return el
-} 
+}

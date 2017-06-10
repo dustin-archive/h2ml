@@ -2,7 +2,7 @@ var test = require('tape')
 var h = require('./')
 
 test('creates html string', function (t) {
-  t.plan(4)
+  t.plan(5)
 
   t.is(
     h('div', { class: 'foo', type: 'test' }, 'bar'),

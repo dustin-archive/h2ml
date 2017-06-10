@@ -2,7 +2,7 @@
 var DOUBLE_QUOTES = /"/g
 
 module.exports = function h (tag, attrs, body) {
-  if (!body && typeof attrs !== 'object') {
+  if (!body && (typeof attrs !== 'object' || Array.isArray(attrs))) {
     body = attrs
     attrs = null
   }
@@ -30,7 +30,7 @@ module.exports = function h (tag, attrs, body) {
 }
 
 function isVoid (tag) {
-  return tag === 'img' || tag === 'input' || tag === 'br' || tag === 'meta' ||
+  return tag === 'img' || tag === 'input' || tag === 'meta' ||
     tag === 'br' || tag === 'wbr' || tag === 'embed' || tag === 'area' ||
     tag === 'base' || tag === 'col' || tag === 'link' || tag === 'param' ||
     tag === 'source' || tag === 'track'

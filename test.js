@@ -2,7 +2,7 @@ var test = require('tape')
 var h = require('./')
 
 test('creates html string', function (t) {
-  t.plan(5)
+  t.plan(6)
 
   t.is(
     h('div', { class: 'foo', type: 'test' }, 'bar'),
@@ -35,5 +35,18 @@ test('creates html string', function (t) {
     h('canvas'),
     '<canvas></canvas>',
     'no body'
+  )
+
+
+  t.is(
+    h('div', [
+      h('span', { class: 'title' }, 'Hello world'),
+      h('p', { class: 'body' },
+        "Autem placeat illo libero voluptatem dolorem. " +
+        "Ut " + h('b', 'consequatur neque harum') + " sed molestias."
+      )
+    ]),
+  '<div><span class="title">Hello world</span><p class="body">Autem placeat illo libero voluptatem dolorem. Ut <b>consequatur neque harum</b> sed molestias.</p></div>',
+    'complex example'
   )
 })

@@ -22,12 +22,18 @@ test('creates html string', function (t) {
   t.is(
     h('img', { src: 'dat://example.com' }),
     "<img src='dat://example.com'>",
-    "void element (img)"
+    'void element'
   )
 
   t.is(
     h('p', { test: "foo 'bar'" }, 'Hello world'),
     "<p test='foo \\'bar\\''>Hello world</p>",
     'escapes quotes'
+  )
+
+  t.is(
+    h('canvas'),
+    '<canvas></canvas>',
+    'no body'
   )
 })

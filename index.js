@@ -8,14 +8,8 @@ module.exports = function h (tag, attrs, body) {
   var el = '<' + tag
 
   // Create attribute list
-  var attrs_list = ''
-  
   for (var attr in attrs) {
-    attrs_list += ' ' + attr + "='" + attrs[attr].replace(QUOTE, "\\'") + "'"
-  }
-  
-  if (attrs_list.length) {
-    el += attrs_list
+    el += ' ' + attr + "='" + attrs[attr].replace(QUOTE, "\\'") + "'"
   }
 
   // Cap off opening tag
@@ -23,15 +17,12 @@ module.exports = function h (tag, attrs, body) {
 
   // Create closing tag and body, if element is not void
   if (
-    tag !== 'img' && tag !== 'input' && tag !== `br` && tag !== 'meta' &&
+    tag !== 'img' && tag !== 'input' && tag !== 'br' && tag !== 'meta' &&
     tag !== 'br' && tag !== 'wbr' && tag !== 'embed' && tag !== 'area' &&
     tag !== 'base' && tag !== 'col' && tag !== 'link' && tag !== 'param' &&
     tag !== 'source' && tag !== 'track'
   ) {
-    if (body) {
-      if (Array.isArray(body)) body = body.join('')
-      el += body
-    }
+    if (body) el += Array.isArray(body) ? body.join('') : body
     el += '</' + tag + '>'
   }
 

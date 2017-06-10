@@ -18,16 +18,20 @@ module.exports = function h (tag, attrs, body) {
   // Cap off opening tag
   el += '>'
 
-  // Create body and closer (if is not a void)
-  if (
-    tag !== 'img' && tag !== 'input' && tag !== 'br' && tag !== 'meta' &&
-    tag !== 'br' && tag !== 'wbr' && tag !== 'embed' && tag !== 'area' &&
-    tag !== 'base' && tag !== 'col' && tag !== 'link' && tag !== 'param' &&
-    tag !== 'source' && tag !== 'track'
-  ) {
-    if (body) el += Array.isArray(body) ? body.join('') : body
-    el += '</' + tag + '>'
+  // Check if element has a body or is void (no body and no closer)
+  if (body) {
+    el += Array.isArray(body) ? body.join('') : body
+  } else if (isVoid(tag)) {
+    return el
   }
 
-  return el
+  // Return el with closer
+  return el + '</' + tag + '>'
+}
+
+function isVoid (tag) {
+  return tag === 'img' || tag === 'input' || tag === 'br' || tag === 'meta' ||
+    tag === 'br' || tag === 'wbr' || tag === 'embed' || tag === 'area' ||
+    tag === 'base' || tag === 'col' || tag === 'link' || tag === 'param' ||
+    tag === 'source' || tag === 'track'
 }

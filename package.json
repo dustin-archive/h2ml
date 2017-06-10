@@ -1,0 +1,14 @@
+{
+  "name": "h2ml",
+  "description": "Create HTML strings from h(...) calls",
+  "author": "Jamen Marz (https://git.io/jamen)",
+  "version": "0.0.0",
+  "repository": "jamen/h2ml",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test"
+  },
+  "devDependencies": {
+    "tape": "^4.6.3"
+  }
+}

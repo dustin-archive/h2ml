@@ -2,7 +2,7 @@ var test = require('tape')
 var h = require('./')
 
 test('creates html string', function (t) {
-  t.plan(6)
+  t.plan(7)
 
   t.is(
     h('div', { class: 'foo', type: 'test' }, 'bar'),
@@ -48,5 +48,11 @@ test('creates html string', function (t) {
     ]),
   '<div><span class="title">Hello world</span><p class="body">Autem placeat illo libero voluptatem dolorem. Ut <b>consequatur neque harum</b> sed molestias.</p></div>',
     'complex example'
+  )
+
+  t.is(
+    h('script', {async: true}, 'foo()'),
+    '<script async="true">foo()</script>',
+    'got non-string data'
   )
 })

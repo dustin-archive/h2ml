@@ -1,26 +1,28 @@
 
 var DOUBLE_QUOTES = /"/g
 
-module.exports = function h (tag, attrs, body) {
-  if (!body && (typeof attrs !== 'object' || Array.isArray(attrs))) {
-    body = attrs
-    attrs = null
+module.exports = function h (tag, data, children) {
+  if (!children && (typeof data !== 'object' || Array.isArray(data))) {
+    children = data
+    data = null
   }
 
   // Start opening tag
   var el = '<' + tag
 
   // Create attribute list
-  for (var attr in attrs) {
-    el += ' ' + attr + '="' + attrs[attr].replace(DOUBLE_QUOTES, '\\"') + '"'
+  for (var attr in data) {
+    var value = data[attr]
+    if (typeof value !== 'string') value = value.toString()
+    el += ' ' + attr + '="' + value.replace(DOUBLE_QUOTES, '\\"') + '"'
   }
 
   // Cap off opening tag
   el += '>'
 
   // Check if element has a body or is void (no body and no closer)
-  if (body) {
-    el += Array.isArray(body) ? body.join('') : body
+  if (children) {
+    el += Array.isArray(children) ? children.join('') : children
   } else if (isVoid(tag)) {
     return el
   }

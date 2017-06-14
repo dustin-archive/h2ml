@@ -1,9 +1,9 @@
 
 # h2ml
 
-> Create HTML strings directly from h(...) calls
+> Create HTML strings from h()
 
-For generating static HTML on the fly.  The output is **not XSS secured**, and minified as far as sanely possible
+For generating static HTML on the fly.  The output **should be XSS secured by you first** if you need it to be.  It is also minified so it is preferred over template strings (or combine it with [`hyperx`](https://github.com/substack/hyperx) :wink:)
 
 ```js
 h('div', [
@@ -15,11 +15,13 @@ h('div', [
 ])
 ```
 
+The whole tree concatenates on evaluation because the function outputs a string.
+
 ## Usage
 
 ### `h(name, data?, children?)`
 
-Symbolizes an element, and returns the HTML string of it.  It is similair to other `h` functions (like [`hyperapp`](https://npmjs.com/hyperapp) or [`hyperscript`](https://npmjs.com/hyperscript)), except it concats strings all the way down the tree instead of creating nested objects
+An [`h2spec`](https://github.com/hyper2/h2spec) element.  Returns an HTML string.
 
 ```js
 h('div', { class: 'foo' }, 'hello world')
@@ -31,4 +33,3 @@ h('div', [
 ])
 // '<div><span>foo</span><span>bar</span></div>'
 ```
-

@@ -3,7 +3,10 @@
 
 > Create HTML strings from h()
 
-For generating static HTML on the fly.  The output **should be XSS secured by you first** if you need it to be.  It is also minified so it is preferred over template strings (or combine it with [`hyperx`](https://github.com/substack/hyperx) :wink:)
+Generate static HTML on the fly!
+The output is minified so it's preferred over template strings or you can combine it with [`hyperx`](https://github.com/substack/hyperx) :wink:.
+
+**If you need the output XSS secured you need to do it first.**
 
 ```js
 h('div', [
@@ -21,7 +24,8 @@ The whole tree concatenates on evaluation because the function outputs a string.
 
 ### `h(name, data?, children?)`
 
-An [`h2spec`](https://github.com/hyper2/h2spec) element.  Returns an HTML string.
+An [`h2spec`](https://github.com/hyper2/h2spec) element.
+Returns an HTML string.
 
 ```js
 h('div', { class: 'foo' }, 'hello world')

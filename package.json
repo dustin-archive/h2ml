@@ -1,6 +1,6 @@
 {
   "name": "h2ml",
-  "description": "Create HTML strings from h(...) calls",
+  "description": "h() that returns an HTML string.",
   "author": "Jamen Marz (https://git.io/jamen)",
   "version": "0.3.0",
   "repository": "jamen/h2ml",
@@ -9,6 +9,7 @@
     "test": "node test"
   },
   "devDependencies": {
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "xss": "^0.3.4"
   }
 }

@@ -1,37 +1,44 @@
 
 # h2ml
 
-> Create HTML strings from h()
-
-Generate static HTML on the fly!
-The output is minified so it's preferred over template strings or you can combine it with [`hyperx`](https://github.com/substack/hyperx) :wink:.
-
-**If you need the output XSS secured you need to do it first.**
+> h() that returns an HTML string.
 
 ```js
+import h from 'h2ml'
+
 h('div', [
   h('span', { class: 'title' }, 'Hello world'),
-  h('p', `
-    Autem placeat illo libero voluptatem dolorem.
-    Ut ${h('b', 'consequatur neque harum')} sed molestias.
-  `)
+  h('p', null, { class: 'body' },
+    'Autem placeat illo libero voluptatem dolorem. ' +
+    'Ut ' + h('b', null, 'consequatur neque harum') + ' sed molestias.'
+  )
 ])
 ```
 
-The whole tree concatenates on evaluation because the function outputs a string.
+**Embeds are not XSS secured**.  Combine it with a library like [`xss`](https://npmjs.com/xss):
+
+```js
+import h from 'h2ml'
+import secure from 'xss'
+
+h('span', null, secure(requestData))
+```
 
 ## Usage
 
-### `h(name, data?, children?)`
+### `h(tag)`
+### `h(tag, data)`
+### `h(tag, data, children)`
 
-An [`h2spec`](https://github.com/hyper2/h2spec) element.
-Returns an HTML string.
+- `tag` specifies the type of element.
+- `data` is the attributes.
+- `children` is an optional string or array of strings.
 
 ```js
 h('div', { class: 'foo' }, 'hello world')
 // '<div class="foo">hello world</div>'
 
-h('div', [
+h('div', null, [
   h('span', 'foo'),
   h('span', 'bar')
 ])

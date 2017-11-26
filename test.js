@@ -1,7 +1,8 @@
-var test = require('tape')
-var h = require('./')
+const test = require('tape')
+const h = require('./')
+const secure = require('xss')
 
-test('creates html string', function (t) {
+test('html strings', t => {
   t.plan(7)
 
   t.is(
@@ -12,8 +13,8 @@ test('creates html string', function (t) {
 
   t.is(
     h('div', { class: 'bar', type: 'test' }, [
-      h('span', 'foo'),
-      h('span', 'bar')
+      h('span', null, 'foo'),
+      h('span', null, 'bar')
     ]),
     '<div class="bar" type="test"><span>foo</span><span>bar</span></div>',
     'basic nesting'
@@ -37,13 +38,12 @@ test('creates html string', function (t) {
     'no body'
   )
 
-
   t.is(
-    h('div', [
+    h('div', null, [
       h('span', { class: 'title' }, 'Hello world'),
       h('p', { class: 'body' },
-        "Autem placeat illo libero voluptatem dolorem. " +
-        "Ut " + h('b', 'consequatur neque harum') + " sed molestias."
+        'Autem placeat illo libero voluptatem dolorem. ' +
+        'Ut ' + h('b', null, 'consequatur neque harum') + ' sed molestias.'
       )
     ]),
   '<div><span class="title">Hello world</span><p class="body">Autem placeat illo libero voluptatem dolorem. Ut <b>consequatur neque harum</b> sed molestias.</p></div>',
@@ -54,5 +54,16 @@ test('creates html string', function (t) {
     h('script', {async: true}, 'foo()'),
     '<script async="true">foo()</script>',
     'got non-string data'
+  )
+})
+
+test('xss example', t => {
+  t.plan(1)
+
+  var requestData = h('script', null, 'alert("hacked")')
+
+  t.is(
+    h('span', null, secure(requestData)),
+    '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
   )
 })

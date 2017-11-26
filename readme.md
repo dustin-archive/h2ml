@@ -6,9 +6,9 @@
 ```js
 import h from 'h2ml'
 
-h('div', [
+h('div', null, [
   h('span', { class: 'title' }, 'Hello world'),
-  h('p', null, { class: 'body' },
+  h('p', { class: 'body' },
     'Autem placeat illo libero voluptatem dolorem. ' +
     'Ut ' + h('b', null, 'consequatur neque harum') + ' sed molestias.'
   )

@@ -21,7 +21,10 @@ h('div', null, [
 import h from 'h2ml'
 import secure from 'xss'
 
-h('span', null, secure(requestData))
+var req = h('script', null, 'alert("hacked")')
+
+h('span', null, secure(req))
+// => '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
 ```
 
 ## Usage

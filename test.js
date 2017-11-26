@@ -60,10 +60,10 @@ test('html strings', t => {
 test('xss example', t => {
   t.plan(1)
 
-  var requestData = h('script', null, 'alert("hacked")')
+  var req = h('script', null, 'alert("hacked")')
 
   t.is(
-    h('span', null, secure(requestData)),
+    h('span', null, secure(req)),
     '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
   )
 })

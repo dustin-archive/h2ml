@@ -3,7 +3,7 @@ const h = require('./')
 const secure = require('xss')
 
 test('html strings', t => {
-  t.plan(7)
+  t.plan(8)
 
   t.is(
     h('div', { class: 'foo', type: 'test' }, 'bar'),
@@ -22,7 +22,7 @@ test('html strings', t => {
 
   t.is(
     h('img', { src: 'dat://example.com' }),
-    '<img src="dat://example.com">',
+    '<img src="dat://example.com"/>',
     'void element'
   )
 
@@ -51,9 +51,15 @@ test('html strings', t => {
   )
 
   t.is(
-    h('script', {async: true}, 'foo()'),
+    h('script', { async: true }, 'foo()'),
     '<script async="true">foo()</script>',
     'got non-string data'
+  )
+
+  t.is(
+    h('path', { d: 'M0,100' }, [ h('boo') ]),
+    '<path d="M0,100"><boo></boo></path>',
+    'allow overriding void elements'
   )
 })
 

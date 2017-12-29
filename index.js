@@ -1,37 +1,23 @@
 
 var DOUBLE_QUOTES = /"/g
+var VOID = ['img', 'input', 'meta', 'br', 'wbr', 'embed', 'area', 'base', 'col',
+  'link', 'param', 'source', 'track', 'circle', 'ellipse', 'line', 'mesh',
+  'path', 'polygon', 'polyline', 'rect']
 
 module.exports = function h (tag, data, children) {
-  var el = '<' + tag
-
-  // Add attributes to element
+  var attrs = ''
   for (var attr in data) {
     var value = data[attr]
     if (typeof value !== 'string') value = value.toString()
-    el += ' ' + attr + '="' + value.replace(DOUBLE_QUOTES, '\\"') + '"'
+    attrs += ' ' + attr + '="' + value.replace(DOUBLE_QUOTES, '\\"') + '"'
   }
 
-  el += '>'
+  var el = '<' + tag + attrs
 
-  // If its a void tag, return now
-  switch (tag) {
-    case 'img':
-    case 'input':
-    case 'meta':
-    case 'br':
-    case 'wbr':
-    case 'embed':
-    case 'area':
-    case 'base':
-    case 'col':
-    case 'link':
-    case 'param':
-    case 'source':
-    case 'track':
-      return el
+  if (VOID.indexOf(tag) !== -1 && !children) {
+    return el + '/>'
+  } else {
+    el += '>' + (Array.isArray(children) ? children.join('') : children || '')
+    return el + '</' + tag + '>'
   }
-
-  // Add children and closing tag to element
-  if (children) el += Array.isArray(children) ? children.join('') : children
-  return el + '</' + tag + '>'
 }

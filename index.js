@@ -17,7 +17,7 @@ module.exports = function h (tag, data, children) {
   if (VOID.indexOf(tag) !== -1 && !children) {
     return el + '/>'
   } else {
-    el += '>' + (Array.isArray(children) ? children.join('') : children || '')
-    return el + '</' + tag + '>'
+    var inner = Array.isArray(children) ? children.join('') : children || ''
+    return el + '>' + inner + '</' + tag + '>'
   }
 }

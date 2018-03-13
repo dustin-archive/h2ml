@@ -35,7 +35,7 @@ h('span', null, secure(req))
 
 ### `h(tag, data?, children?)`
 
-- `tag`: The element name passed to.
+- `tag`: The element name.
 - `data` (optional): An object containing the attributes to set on the element.
 - `children` (optional): A string or array of strings.
 

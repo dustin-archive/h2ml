@@ -1,7 +1,9 @@
 
 # h2ml
 
-> h() that returns an HTML string.
+> An h function that returns any XML dialect as a string.
+
+## Example
 
 ```js
 import h from 'h2ml'
@@ -15,13 +17,13 @@ h('div', null, [
 ])
 ```
 
-**Embeds are not XSS secured**.  Combine it with a library like [`xss`](https://npmjs.com/xss):
+_**NOTICE** Embeds are not XSS secured. Combine it with a library like [xss](https://npmjs.com/xss)_
 
 ```js
 import h from 'h2ml'
 import secure from 'xss'
 
-var req = h('script', null, 'alert("hacked")')
+const req = h('script', null, 'alert("hacked")')
 
 h('span', null, secure(req))
 // => '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
@@ -29,13 +31,13 @@ h('span', null, secure(req))
 
 ## Usage
 
-### `h(tag)`
-### `h(tag, data)`
-### `h(tag, data, children)`
+[This function follows the h2spec guidelines.](https://github.com/hyper2/h2spec)
 
-- `tag` specifies the type of element.
-- `data` is the attributes.
-- `children` is an optional string or array of strings.
+### `h(tag, data?, children?)`
+
+- `tag`: The element name.
+- `data` (optional): An object containing the attributes to set on the element.
+- `children` (optional): A string or array of strings.
 
 ```js
 h('div', { class: 'foo' }, 'hello world')

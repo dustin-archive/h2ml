@@ -1,12 +1,10 @@
 
 # h2ml
 
-> An h function that returns any XML dialect as a string.
-
-## Example
+> An h function that returns HTML (or XML) strings.
 
 ```js
-import h from 'h2ml'
+const h = require('h2ml')
 
 h('div', null, [
   h('span', { class: 'title' }, 'Hello world'),
@@ -17,21 +15,22 @@ h('div', null, [
 ])
 ```
 
-_**NOTICE** Embeds are not XSS secured. Combine it with a library like [xss](https://npmjs.com/xss)_
+Injected content *is not* XSS secured and should be combined with a library like [`xss-filters`](https://npmjs.com/xss-filters)
 
 ```js
-import h from 'h2ml'
-import secure from 'xss'
+const h = require('h2ml')
+const secure = require('xss-filters')
 
-const req = h('script', null, 'alert("hacked")')
+// Example if a user sent a script tag
+const data = '<script>alert("hacked nerd")</script>'
 
-h('span', null, secure(req))
-// => '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
+h('span', null, secure.inHTMLData(data))
+// => '<span>&lt;script>alert("hacked nerd")&lt;/script></span>'
 ```
 
 ## Usage
 
-[This function follows the h2spec guidelines.](https://github.com/hyper2/h2spec)
+This package follows the [h2spec guidelines](https://github.com/hyper2/h2spec).
 
 ### `h(tag, data?, children?)`
 

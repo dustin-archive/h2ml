@@ -1,6 +1,6 @@
 const test = require('tape')
 const h = require('./')
-const secure = require('xss')
+const secure = require('xss-filters')
 
 test('html strings', t => {
   t.plan(8)
@@ -66,10 +66,10 @@ test('html strings', t => {
 test('xss example', t => {
   t.plan(1)
 
-  var req = h('script', null, 'alert("hacked")')
+  var data = '<script>alert("hacked nerd")</script>'
 
   t.is(
-    h('span', null, secure(req)),
-    '<span>&lt;script&gt;alert("hacked")&lt;/script&gt;</span>'
+    h('span', null, secure.inHTMLData(data)),
+    '<span>&lt;script>alert("hacked nerd")&lt;/script></span>'
   )
 })
